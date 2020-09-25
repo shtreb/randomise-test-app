@@ -1,7 +1,12 @@
-abstract class ListPresenter {
+abstract class ListInformationPresenter {
+
+  ListInformationView view;
+
+  ListInformationPresenter(this.view);
+
   void loadInformation();
 }
 
-abstract class ListView {
+abstract class ListInformationView {
 
 }

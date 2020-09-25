@@ -1,28 +1,31 @@
 import 'dart:async';
 
-import 'package:randomiser/domain/entity/friend.dart';
 import 'package:randomiser/main.dart';
+import 'package:randomiser/domain/entity/friend.dart';
 
 typedef OnListUpdate = void Function(dynamic items);
 typedef OnError = void Function(Exception error);
 
 class InfoService {
 
-  StreamController<dynamic> _streamInfoCtrl;
+  StreamController<List<Friend>> _streamInfoCtrl;
   StreamController<Exception> _streamException;
 
-  Stream<dynamic> get infoStream => _streamInfoCtrl.stream;
+  Stream<List<Friend>> get infoStream => _streamInfoCtrl.stream;
   Stream<dynamic> get exceptionStream => _streamException.stream;
 
+  List<Friend> _friends = [];
+
   InfoService() {
-    _streamInfoCtrl = StreamController<dynamic>.broadcast();
+    _streamInfoCtrl = StreamController<List<Friend>>.broadcast();
     _streamException = StreamController<Exception>.broadcast();
   }
 
   void updateInformation() async {
     try {
       List<Friend> res = await gateway.loadFromServerList();
-      if(!_streamInfoCtrl.isClosed) _streamInfoCtrl.add(res);
+      _friends.addAll(res);
+      if(!_streamInfoCtrl.isClosed) _streamInfoCtrl.add(_friends);
     } catch(e) {
       if(!_streamException.isClosed) _streamException.add(e);
     }
