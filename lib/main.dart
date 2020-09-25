@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:randomiser/data/gateway.dart';
+import 'package:randomiser/domain/cases/services/info-service.dart';
 import 'package:randomiser/domain/flavors/flavor.dart';
 import 'package:randomiser/domain/flavors/main-flavor.dart';
 import 'package:randomiser/presenter/ui/screens/main-list.dart';
@@ -10,6 +11,7 @@ void main() {
 }
 
 Gateway gateway;
+InfoService infoService;
 
 class MyApp extends StatefulWidget {
   final Flavor flavor;
@@ -33,6 +35,9 @@ class _MyAppState extends State<MyApp> {
     dark = widget.flavor.darkPalette;
 
     gateway = Gateway(widget.flavor.baseApi);
+    infoService = InfoService();
+
+    infoService.updateInformation();
 
     super.initState();
   }
@@ -54,6 +59,11 @@ class _MyAppState extends State<MyApp> {
       ),
       home: MainList(),
     );
+  }
+
+  @override void dispose() {
+    infoService.dispose();
+    super.dispose();
   }
 
 }

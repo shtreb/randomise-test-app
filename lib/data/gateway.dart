@@ -1,3 +1,4 @@
+import 'package:randomiser/domain/entity/friend.dart';
 import 'package:randomiser/data/server/server-api.dart';
 
 class Gateway {
@@ -8,8 +9,6 @@ class Gateway {
     _api = ServerApi(baseApi);
   }
 
-  Future<dynamic> loadFromServerList() {
-
-  }
+  Future<List<Friend>> loadFromServerList() => _api.loadInformation();
 
 }
