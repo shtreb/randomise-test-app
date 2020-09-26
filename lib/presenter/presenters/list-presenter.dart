@@ -11,6 +11,7 @@ abstract class ListInformationPresenter extends BasePresenter {
     Friend friend
   }) : super(view);
 
+  void loadCurrentItems();
   void loadNextItems();
 }
 

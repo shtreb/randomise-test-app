@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:randomiser/data/gateway.dart';
 import 'package:randomiser/domain/cases/services/info-service.dart';
 import 'package:randomiser/domain/flavors/flavor.dart';
 import 'package:randomiser/domain/flavors/main-flavor.dart';
+import 'package:randomiser/generated/i18n.dart';
 import 'package:randomiser/presenter/ui/screens/main-list.dart';
 
 void main() {
@@ -15,6 +17,9 @@ InfoService infoService;
 
 class MyApp extends StatefulWidget {
   final Flavor flavor;
+
+  final List<Locale> localeList = [const Locale('en')];
+  final Locale defaultLocale = const Locale('en');
 
   MyApp(this.flavor);
 
@@ -57,7 +62,7 @@ class _MyAppState extends State<MyApp> {
 
   @override Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Randomiser',
+      title: '',//S.of(context).appName,
       theme: theme.copyWith(
         scaffoldBackgroundColor: light.scaffold,
         primaryColor: light.colorPrimary,
@@ -79,6 +84,22 @@ class _MyAppState extends State<MyApp> {
         )
       ),
       home: MainList(),
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (locale != null && locale.languageCode == supportedLocale.languageCode) {
+            return supportedLocale;
+          }
+        }
+        return locale ?? widget.localeList[0];
+      },
+      locale: widget.defaultLocale,
+      supportedLocales: S.delegate.supportedLocales,
     );
   }
 

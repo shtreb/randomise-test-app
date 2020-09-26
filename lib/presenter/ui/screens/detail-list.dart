@@ -2,8 +2,9 @@ import 'dart:ui';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:randomiser/domain/entity/range-list.dart';
 
+import 'package:randomiser/domain/entity/range-list.dart';
+import 'package:randomiser/generated/i18n.dart';
 import 'package:randomiser/presenter/ui/widgets/list-widget.dart';
 
 
@@ -37,7 +38,10 @@ class DetailList extends StatelessWidget {
                             RangeList range = snapshot.data;
                             return Center(
                               child: Text(
-                                '${range.current == 0 ? (currentPosition ?? 0) + 1 : range.current} из ${range.maximal}',
+                                S.of(context).rangeList(
+                                    range.current == 0 ? (currentPosition ?? 0) + 1 : range.current,
+                                    range.maximal
+                                ),
                                 style: Theme.of(context).appBarTheme.textTheme.bodyText1,
                               ),
                             );

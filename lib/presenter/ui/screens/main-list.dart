@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:randomiser/domain/cases/navigation.dart';
-import 'package:randomiser/domain/entity/friend.dart';
 import 'package:randomiser/presenter/ui/widgets/list-widget.dart';
+import 'package:randomiser/generated/i18n.dart';
 
 class MainList extends StatelessWidget {
 
@@ -12,7 +12,7 @@ class MainList extends StatelessWidget {
     child: Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('MainLib'),
+        title: Text(S.of(context).titleMainScreen),
       ),
       body: ListWidget(
         onTap: (int position) {

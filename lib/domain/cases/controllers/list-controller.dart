@@ -13,12 +13,14 @@ class ListController extends ListInformationPresenter {
 
   ListController(ListInformationView view) : super(view) {
     _streamInfoCtrl = StreamController<List<Friend>>();
-    _streamInfoSubscription = infoService.infoStream.listen((List<Friend> friends) => _streamInfoCtrl.add(friends),
+    _streamInfoSubscription = infoService.infoStream.listen(
+        (List<Friend> friends) => _streamInfoCtrl.add(friends),
         onError: (e) => _streamInfoCtrl.addError(e));
 
-    infoService.loadCurrentInformation();
+    loadCurrentItems();
   }
 
+  @override void loadCurrentItems() => infoService.loadCurrentInformation();
   @override void loadNextItems() => infoService.loadNextItems();
 
   @override destroy() {

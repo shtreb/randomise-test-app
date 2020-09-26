@@ -1,0 +1,13 @@
+{
+  "appName": "Randomiser",
+  "rangeList": "${current} from ${max}",
+  "titleMainScreen": "Title Main Screen",
+  "detailAddress": "Address:",
+  "detailEmail": "Email:",
+  "detailPhone": "Phone:",
+  "exceptionUnknown": "Oops... Something went wrong",
+  "exceptionSocket": "Check your internet connection and try again",
+  "exceptionTimeout": "Server not respond, please try again",
+  "dialogTryAgain": "Try",
+  "pictureNotDownload": "Failed to upload picture"
+}
