@@ -1,12 +1,19 @@
-abstract class ListInformationPresenter {
+import 'package:randomiser/domain/entity/friend.dart';
+import 'package:randomiser/presenter/presenters/base-presenter.dart';
+
+abstract class ListInformationPresenter extends BasePresenter {
 
   ListInformationView view;
 
-  ListInformationPresenter(this.view);
+  Stream<List<Friend>> get streamInfo;
 
-  void loadInformation();
+  ListInformationPresenter(this.view, {
+    Friend friend
+  }) : super(view);
+
+  void loadNextItems();
 }
 
-abstract class ListInformationView {
+abstract class ListInformationView extends BaseView {
 
 }

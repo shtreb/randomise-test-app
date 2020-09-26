@@ -4,6 +4,7 @@ class Friend {
   Location location;
   String email;
   Login login;
+  Picture picture;
   CustomDate dob;
   CustomDate registered;
   String phone;
@@ -17,6 +18,7 @@ class Friend {
     Location location,
     String email,
     Login login,
+    Picture picture,
     CustomDate dob,
     CustomDate registered,
     String phone,
@@ -29,6 +31,7 @@ class Friend {
       location = location ?? Location(),
       email = email ?? '',
       login = login ?? Login(),
+      picture = picture ?? Picture(),
       dob = dob ?? CustomDate(),
       registered = registered ?? CustomDate(),
       phone = phone ?? '',
@@ -44,6 +47,7 @@ class Friend {
       location: Location.fromJson(_json['location']),
       email: _json['email'],
       login: Login.fromJson(_json['login']),
+      picture: Picture.fromJson(_json['picture']),
       dob: CustomDate.fromJson(_json['dob']),
       registered: CustomDate.fromJson(_json['registered']),
       phone: _json['phone'],
@@ -60,23 +64,23 @@ class Friend {
 }
 
 class Name {
-  String name;
+  String title;
   String first;
   String last;
 
   Name({
-    String name,
+    String title,
     String first,
     String last
   }) :
-      name = name ?? '',
+      title = title ?? '',
       first = first ?? '',
       last = last ?? '';
 
   static Name fromJson(_json) {
     if(_json == null) return Name();
     return Name(
-      name: _json['name'],
+        title: _json['title'],
       first: _json['first'],
       last: _json['last']
     );
@@ -89,7 +93,7 @@ class Location {
   String city;
   String state;
   String country;
-  num postCode;
+  String postCode;
   Coordinates coordinates;
   TimeZone timeZone;
 
@@ -98,7 +102,7 @@ class Location {
     String city,
     String state,
     String country,
-    num postCode,
+    String postCode,
     Coordinates coordinates,
     TimeZone timeZone
   }) :
@@ -106,7 +110,7 @@ class Location {
       city = city ?? '',
       state = state ?? '',
       country = country ?? '',
-      postCode = postCode ?? 0,
+      postCode = postCode ?? '0',
       coordinates = coordinates ?? Coordinates(),
       timeZone = timeZone ?? '';
 
@@ -117,7 +121,7 @@ class Location {
       city: _json['city'],
       state: _json['state'],
       country: _json['country'],
-      postCode: _json['postCode'],
+      postCode: (_json['postcode'] ?? 0).toString(),
       coordinates: Coordinates.fromJson(_json['coordinates']),
       timeZone: TimeZone.fromJson(_json['timeZone']),
     );

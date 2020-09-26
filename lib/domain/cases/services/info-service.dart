@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:randomiser/domain/entity/exceptions.dart';
 import 'package:randomiser/main.dart';
 import 'package:randomiser/domain/entity/friend.dart';
 
@@ -21,13 +22,18 @@ class InfoService {
     _streamException = StreamController<Exception>.broadcast();
   }
 
-  void updateInformation() async {
+  void loadCurrentInformation() {
+    if(!_streamInfoCtrl.isClosed) _streamInfoCtrl.add(_friends);
+  }
+
+  void loadNextItems() async {
     try {
       List<Friend> res = await gateway.loadFromServerList();
       _friends.addAll(res);
-      if(!_streamInfoCtrl.isClosed) _streamInfoCtrl.add(_friends);
-    } catch(e) {
-      if(!_streamException.isClosed) _streamException.add(e);
+      loadCurrentInformation();
+    } catch (e) {
+      if(!_streamException.isClosed)
+        _streamInfoCtrl.addError(CustomException(data: _friends, exception: e));
     }
   }
 

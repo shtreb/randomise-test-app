@@ -27,7 +27,20 @@ class _MyAppState extends State<MyApp> {
   ColorPalette dark;
 
   ThemeData theme = ThemeData(
-    visualDensity: VisualDensity.standard
+    visualDensity: VisualDensity.standard,
+    appBarTheme: AppBarTheme(
+      textTheme: TextTheme(
+        bodyText1: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.white)
+      )
+    ),
+    textTheme: TextTheme(
+      bodyText1: TextStyle(
+        fontSize: 16,
+      ),
+      bodyText2: TextStyle(
+        fontSize: 14,
+      )
+    )
   );
 
   @override void initState() {
@@ -37,7 +50,7 @@ class _MyAppState extends State<MyApp> {
     gateway = Gateway(widget.flavor.baseApi);
     infoService = InfoService();
 
-    infoService.updateInformation();
+    infoService.loadNextItems();
 
     super.initState();
   }
@@ -49,13 +62,21 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: light.scaffold,
         primaryColor: light.colorPrimary,
         primaryColorDark: light.colorPrimaryDark,
-        accentColor: light.colorAccent
+        accentColor: light.colorAccent,
+        textTheme: theme.textTheme.copyWith(
+          bodyText1: theme.textTheme.bodyText1.copyWith(color: Colors.black),
+          bodyText2: theme.textTheme.bodyText1.copyWith(color: Colors.grey[600])
+        )
       ),
       darkTheme: theme.copyWith(
         scaffoldBackgroundColor: dark.scaffold,
         primaryColor: dark.colorPrimary,
         primaryColorDark: dark.colorPrimaryDark,
-        accentColor: dark.colorAccent
+        accentColor: dark.colorAccent,
+        textTheme: theme.textTheme.copyWith(
+          bodyText1: theme.textTheme.bodyText1.copyWith(color: Colors.white),
+          bodyText2: theme.textTheme.bodyText1.copyWith(color: Colors.grey[400])
+        )
       ),
       home: MainList(),
     );

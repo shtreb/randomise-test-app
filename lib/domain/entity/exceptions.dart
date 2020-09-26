@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
 
+class CustomException<T> implements Exception {
+  T data;
+  Exception exception;
+
+  CustomException({
+    this.data,
+    this.exception
+  });
+}
+
 class ApiException implements Exception {
 
   int code;
